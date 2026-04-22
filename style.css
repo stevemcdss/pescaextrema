@@ -1,0 +1,546 @@
+/* O "segredo" da rolagem suave em puro CSS */
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+
+/* Menu com efeito Vidro Fosco (Blur) */
+.menu {
+    position: fixed; 
+    top: 0;
+    width: 100%;
+    /* Fundo preto com 10% de opacidade (não é totalmente transparente) */
+    background-color: rgba(0, 0, 0, 0.4); 
+    /* O efeito mágico de desfoque no fundo */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(10px); /* Garante que funcione no navegador Safari também */
+    z-index: 1000;
+    transition: background-color 0.5s ease, box-shadow 0.4s ease; 
+}
+
+
+
+/* Como o menu fica quando você rola a página para baixo */
+.menu.com-fundo {
+    /* Fica quase totalmente escuro (90%) para facilitar a leitura no resto do site */
+    background-color: rgba(15, 15, 15, 0.9); 
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3); 
+}
+
+
+/* Estilo dos itens do menu */
+.menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+.menu a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: 15px 20px;
+    font-weight: bold;
+    transition: background 0.3s ease;
+}
+
+.menu a:hover {
+    background-color: #555;
+}
+
+/* Configuração de cada bloco da página */
+.secao {
+    height: 100vh; /* 100% da altura da janela do usuário */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 60px; /* Compensa a altura do menu para o título não ficar escondido */
+}
+
+/* Cores de fundo diferentes para visualizar o efeito funcionando */
+#inicio { background-color: #f4f4f9; }
+#sobre { background-color: #e0e0eb; }
+#servicos { background-color: #d1d1e0; }
+#contato { background-color: #c2c2d6; }
+
+/* =========================================
+   ESTILOS DO SLIDER
+========================================= */
+.slider-container {
+    position: relative;
+    width: 100%;
+    height: 100vh; /* Ocupa 100% da altura da tela */
+    overflow: hidden; /* Esconde as fotos que estão fora da tela */
+}
+
+.slider-wrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s ease-in-out; /* Animação suave ao passar a foto */
+}
+
+.slide {
+    min-width: 100%;
+    height: 100%;
+    position: relative; /* ADICIONE ESTA LINHA IMPORTANTE */
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Corta a imagem perfeitamente para caber na tela */
+    display: block;
+}
+
+/* Estilo dos botões de voltar e avançar */
+.botao-slider {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo preto transparente */
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    cursor: pointer;
+    font-size: 24px;
+    border-radius: 5px;
+    transition: background 0.3s;
+}
+
+.botao-slider:hover {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.prev { left: 20px; }
+.next { right: 20px; }
+
+/* =========================================
+   CONTEÚDO FLUTUANTE DO SLIDER
+========================================= */
+.slide-content {
+    position: absolute;
+    top: 50%;   /* Posiciona o topo no meio da tela */
+    left: 50%;  /* Posiciona a esquerda no meio da tela */
+    transform: translate(-50%, -50%); /* Ajusta para ficar EXATAMENTE no centro */
+    text-align: center;
+    color: white;
+    z-index: 2; /* Garante que fique acima da imagem */
+    width: 80%; /* Para não bater nas bordas em telas pequenas */
+    max-width: 600px;
+    /* Uma sombra leve no texto ajuda a ler em fotos claras */
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+}
+
+.slide-content h2 {
+    font-size: 3em;
+    margin-bottom: 10px;
+}
+
+.slide-content p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+}
+
+/* Estilo do Botão Flutuante */
+.btn-flutuante {
+    display: inline-block;
+    padding: 15px 35px;
+    background-color: #007BFF; /* Cor azul chamativa */
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 30px; /* Bordas arredondadas modernas */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background 0.3s, transform 0.3s;
+    text-shadow: none; /* O botão não precisa de sombra no texto */
+}
+
+/* Efeito ao passar o mouse no botão */
+.btn-flutuante:hover {
+    background-color: #0056b3; /* Azul mais escuro */
+    transform: translateY(-3px); /* O botão "sobe" ligeiramente */
+}
+
+
+/* =========================================
+   SEÇÃO DE DESTINOS (CARDS GRID)
+========================================= */
+.secao-destinos {
+    padding: 80px 20px;
+    background-color: #ffffff;
+    max-width: 1200px;
+    margin: 0 auto; /* Centraliza a seção na tela */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Título */
+.cabecalho-destinos {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.cabecalho-destinos h2 {
+    color: #008080; /* Cor verde-azulado (Teal) */
+    font-size: 2.2em;
+    margin-bottom: 5px;
+}
+
+.cabecalho-destinos h2 span {
+    color: #006666;
+}
+
+.linha-destaque {
+    width: 60px;
+    height: 3px;
+    background-color: #ffc107; /* Amarelo */
+    margin: 0 auto;
+}
+
+/* Filtros */
+.filtros-destinos {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.btn-filtro {
+    background: none;
+    border: none;
+    font-size: 1.1em;
+    color: #777;
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+}
+
+.btn-filtro.ativo {
+    border: 1px solid #ddd;
+    color: #008080;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Grid de Cartões */
+.grade-cards {
+    display: grid;
+    /* Isso faz a mágica da responsividade: cria colunas de no mínimo 250px */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.card {
+    border: 1px solid #eee;
+    border-radius: 12px;
+    overflow: hidden; /* Mantém a imagem dentro das bordas arredondadas */
+    background: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Faz o card "subir" um pouquinho ao passar o mouse */
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.card-imagem {
+    position: relative;
+    height: 200px;
+}
+
+.card-imagem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.icone-coracao {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.card-conteudo {
+    padding: 20px;
+    text-align: center;
+}
+
+.estrelas {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.estrela-apagada {
+    filter: grayscale(100%) opacity(50%);
+}
+
+.card-conteudo h3 {
+    font-size: 1.1em;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.precos {
+    margin-bottom: 15px;
+}
+
+.preco-antigo {
+    text-decoration: line-through; /* Cria o risco no preço antigo */
+    color: #999;
+    margin-right: 10px;
+}
+
+.preco-novo {
+    color: #333;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+.cores-opcoes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.cor {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.mais-cores {
+    font-size: 12px;
+    color: #777;
+}
+
+/* Botão View All */
+.container-view-all {
+    text-align: center;
+}
+
+.btn-view-all {
+    display: inline-block;
+    background-color: #ffc107; /* Amarelo */
+    color: #333;
+    padding: 12px 30px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 30px;
+    transition: background 0.3s;
+}
+
+.btn-view-all:hover {
+    background-color: #ffca2c;
+}
+
+
+/* =========================================
+   SEÇÃO EXPLORE (FUNDO FIXO / PARALLAX)
+========================================= */
+.secao-explore {
+    /* O SEGREDO DO FUNDO FIXO ESTÁ AQUI: */
+    background-image: url('imagens/BARCO\ 2.jpeg'); /* Imagem de fundo temporária */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Essa linha faz a imagem congelar ao rolar a página */
+    
+    /* Uma camada escura por cima do fundo para o texto branco ficar legível */
+    box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.4); 
+
+    padding: 120px 20px;
+    display: flex;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    overflow: hidden;
+}
+
+.explore-container {
+    max-width: 1100px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 40px;
+    flex-wrap: wrap; /* Permite que o lado direito desça no celular */
+}
+
+/* --- Lado Esquerdo (Textos) --- */
+.explore-textos {
+    flex: 1;
+    min-width: 300px;
+}
+
+.explore-subtitulo {
+    color: #f08c4a; /* Cor Laranja */
+    font-size: 1.8em;
+    font-weight: 800;
+    margin-bottom: 5px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Sombra para leitura */
+}
+
+.explore-textos h2 {
+    color: #ffffff;
+    font-size: 4.5em; /* Texto bem grande */
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 40px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.6);
+}
+
+.btn-explore {
+    display: inline-block;
+    background-color: #f08c4a; /* Laranja */
+    color: #ffffff;
+    padding: 15px 35px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 30px; /* Botão arredondado */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background 0.3s, transform 0.3s;
+    font-size: 0.9em;
+}
+
+.btn-explore:hover {
+    background-color: #d67536; /* Laranja mais escuro no hover */
+    transform: scale(1.05); /* Botão cresce um pouquinho */
+}
+
+/* --- Lado Direito (Imagens Sobrepostas) --- */
+.explore-imagens {
+    flex: 1;
+    position: relative;
+    min-width: 300px;
+    height: 500px; /* Altura para caber a sobreposição */
+}
+
+/* Imagem que fica no fundo/esquerda */
+.img-tras {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 320px;
+    height: 380px;
+    object-fit: cover; /* Não deixa a imagem distorcer */
+    box-shadow: 0 15px 30px rgba(0,0,0,0.4); /* Sombra para dar profundidade */
+}
+
+/* Imagem que fica na frente/direita */
+.img-frente {
+    position: absolute;
+    top: 80px; /* Desloca para baixo */
+    right: 0;  /* Gruda na direita */
+    width: 320px;
+    height: 380px;
+    object-fit: cover;
+    box-shadow: -10px 15px 30px rgba(0,0,0,0.5); /* Sombra direcionada */
+    z-index: 2; /* Garante que fique por cima da outra */
+}
+
+/* --- Ajuste para Celulares --- */
+@media (max-width: 800px) {
+    .explore-textos h2 { font-size: 3em; }
+    .explore-imagens { height: 400px; margin-top: 40px; }
+    .img-tras { width: 200px; height: 260px; }
+    .img-frente { width: 200px; height: 260px; }
+}
+
+/* =========================================
+   SEÇÃO WELCOME (BOAS-VINDAS)
+========================================= */
+.secao-welcome {
+    padding: 100px 20px; /* Bastante espaço em cima e embaixo */
+    background-color: #ffffff; /* Fundo branco */
+    text-align: center; /* Centraliza tudo dentro da seção */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.welcome-container {
+    max-width: 900px; /* Limita a largura do texto para não ficar muito esticado */
+    margin: 0 auto; /* Garante que o bloco fique no centro da tela */
+}
+
+/* Subtítulo pequeno e cinza */
+.welcome-subtitulo {
+    color: #999; /* Cinza claro */
+    text-transform: uppercase; /* Letras maiúsculas */
+    letter-spacing: 2px; /* Espaçamento entre as letras */
+    font-size: 0.9em;
+    margin-bottom: 15px;
+}
+
+/* Título principal WELCOME */
+.secao-welcome h2 {
+    color: #222; /* Preto quase total */
+    font-size: 3.5em; /* Tamanho bem grande */
+    font-weight: 800; /* Negrito extra forte */
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    margin: 0; /* Remove margem padrão */
+    margin-bottom: 30px;
+}
+
+/* O parágrafo de texto */
+.welcome-texto {
+    color: #777; /* Cinza médio para o texto */
+    line-height: 1.8; /* Altura da linha para facilitar a leitura */
+    font-size: 1.05em;
+    margin-bottom: 50px; /* Espaço grande antes dos botões */
+    padding: 0 20px; /* Um pequeno respiro nas laterais em telas pequenas */
+}
+
+/* Container dos botões */
+.welcome-botoes {
+    display: flex;
+    justify-content: center; /* Centraliza os botões lado a lado */
+    gap: 20px; /* Espaço entre os dois botões */
+    flex-wrap: wrap; /* Permite que um caia para baixo do outro no celular */
+}
+
+/* Estilo dos botões ciano */
+.btn-ciano {
+    display: inline-block;
+    background-color: #46bcdc; /* A cor ciano/azul claro da imagem */
+    color: #ffffff; /* Texto branco */
+    padding: 18px 40px; /* Botões "gordinhos" */
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9em;
+    border: none;
+    /* Note que NÃO tem border-radius, eles são quadrados na imagem */
+    transition: background-color 0.3s ease;
+    min-width: 180px; /* Garante um tamanho mínimo para ambos ficarem iguais */
+}
+
+/* Efeito ao passar o mouse no botão */
+.btn-ciano:hover {
+    background-color: #35a0bd; /* Um tom ligeiramente mais escuro */
+}
+
